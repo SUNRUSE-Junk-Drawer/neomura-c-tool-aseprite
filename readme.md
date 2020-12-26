@@ -9,7 +9,9 @@ files compatible with the
 ## dependencies
 
 - nodejs 14.15.3 or later.
-- aseprite available via path.
+- aseprite available via path (use
+  [setup-aseprite-cli-action](https://github.com/neomura/setup-aseprite-cli-action)
+  in continuous integration).
 
 ## installation/usage
 
