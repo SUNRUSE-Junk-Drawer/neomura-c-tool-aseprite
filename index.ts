@@ -94,7 +94,13 @@ runMain(async () => {
     let stderr = ``;
 
     await new Promise<void>((resolve, reject) => {
-      const childProcess = spawn(`aseprite`, [
+      // These two branches are platform specific.  We run CI on both so lacking
+      // coverage is acceptable.
+      /* istanbul ignore next */
+      const executable =
+        process.platform === `win32` ? `aseprite.exe` : `aseprite`;
+
+      const childProcess = spawn(executable, [
         `--batch`,
         `--list-tags`,
         `--trim`,
