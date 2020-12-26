@@ -10,6 +10,7 @@ import {
   runMain,
 } from "@neomura/js-command-line-helpers";
 import { convertFileNameToIdentifier } from "./convert-file-name-to-identifier";
+import { escapeCommandLineArgument } from "./escape-command-line-argument";
 
 runMain(async () => {
   const commandLineArguments = parseCommandLineArguments(
@@ -83,42 +84,38 @@ runMain(async () => {
 
   const temporaryDirectory = join(tmpdir(), v4());
 
-  const dataFile = join(temporaryDirectory, `data.json`);
-  const sheetFile = join(temporaryDirectory, `sheet.png`);
-
-  let command = ``;
-
   try {
+    await promises.mkdir(temporaryDirectory, {
+      recursive: true,
+    });
+
+    const dataFile = join(temporaryDirectory, `data.json`);
+    const sheetFile = join(temporaryDirectory, `sheet.png`);
+
+    // aseprite doesn't seem to show up reliably through anything but Bash for
+    // unknown reason - so make a script and execute that.
+    const scriptFile = join(temporaryDirectory, `script.sh`);
+    const script = `aseprite --batch --list-tags --trim ${escapeCommandLineArgument(
+      commandLineArguments.strings.asepriteFile
+    )} --data ${escapeCommandLineArgument(
+      dataFile
+    )} --filename-format {frame} --sheet ${escapeCommandLineArgument(
+      sheetFile
+    )}`;
+
+    await promises.writeFile(
+      scriptFile,
+      `set -e
+${script}
+`
+    );
+
     let exitCode: null | number = null;
     let stdout = ``;
     let stderr = ``;
 
     await new Promise<void>((resolve, reject) => {
-      const args = [
-        `--batch`,
-        `--list-tags`,
-        `--trim`,
-        commandLineArguments.strings.asepriteFile,
-        `--data`,
-        dataFile,
-        `--filename-format`,
-        `{frame}`,
-        `--sheet`,
-        sheetFile,
-      ];
-
-      command = `aseprite ${args.join(` `)}`;
-
-      // These diverge for Win32 by necessity, so full coverage isn't possible
-      // from any individual OS.
-
-      /* istanbul ignore next */
-      const childProcess = spawn(
-        process.platform === `win32` ? `cmd` : `aseprite`,
-        process.platform === `win32` ? [`/c`, `aseprite`, ...args] : args
-      );
-
-      command = childProcess.spawnargs.join(` `);
+      const childProcess = spawn(`bash`, [`-e`, scriptFile]);
 
       childProcess.stdout.on(`data`, (data) => {
         stdout += data;
@@ -141,13 +138,13 @@ runMain(async () => {
     /* istanbul ignore next */
     if (exitCode !== 0 || stderr.trim() !== ``) {
       // Aseprite CLI does not appear to use exit codes.
-      throw `"${command}" exited with code ${exitCode}; stdout ${stdout}; stderr ${stderr}.`;
+      throw `"${script}" exited with code ${exitCode}; stdout ${stdout}; stderr ${stderr}.`;
     }
 
     const dataJson = await promises.readFile(dataFile, `utf8`);
 
     if (dataJson === ``) {
-      throw `"${command}" produced an empty data file.`;
+      throw `"${script}" produced an empty data file.`;
     }
 
     const data: {

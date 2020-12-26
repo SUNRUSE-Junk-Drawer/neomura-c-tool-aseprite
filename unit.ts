@@ -332,7 +332,7 @@ scenario(
   ],
   1,
   ``,
-  /^"aseprite --batch --list-tags --trim [^ ]+[\\\/]path[\\\/]to[\\\/]example[\\\/]input[\\\/]aseprite-file\.ase --data [^ ]+[\\\/]data\.json --filename-format {frame} --sheet [^ ]+[\\\/]sheet\.png" produced an empty data file\.\r?\n$/,
+  /^"aseprite --batch --list-tags --trim '[^ ]+[\\\/]path[\\\/]to[\\\/]example[\\\/]input[\\\/]aseprite-file\.ase' --data '[^ ]+[\\\/]data\.json' --filename-format {frame} --sheet '[^ ]+[\\\/]sheet\.png'" produced an empty data file\.\r?\n$/,
   [],
   []
 );
@@ -381,7 +381,7 @@ scenario(
   ],
   1,
   ``,
-  /^"aseprite --batch --list-tags --trim [^ ]+[\\\/]path[\\\/]to[\\\/]example[\\\/]input[\\\/]aseprite-file\.ase --data [^ ]+[\\\/]data\.json --filename-format {frame} --sheet [^ ]+[\\\/]sheet\.png" produced an empty data file\.\r?\n$/,
+  /^"aseprite --batch --list-tags --trim '[^ ]+[\\\/]path[\\\/]to[\\\/]example[\\\/]input[\\\/]aseprite-file\.ase' --data '[^ ]+[\\\/]data\.json' --filename-format {frame} --sheet '[^ ]+[\\\/]sheet\.png'" produced an empty data file\.\r?\n$/,
   [
     {
       from: `example-non-aseprite-file.txt`,
