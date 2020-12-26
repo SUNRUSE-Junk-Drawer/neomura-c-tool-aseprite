@@ -79,11 +79,11 @@ function scenario(
       }
 
       await recurse(temporaryDirectory);
-    });
+    }, 30000);
 
     afterAll(async () => {
       await promises.rm(temporaryDirectory, { recursive: true, force: true });
-    });
+    }, 30000);
 
     it(`returns the expected exit code`, () => {
       expect(actualExitCode).toEqual(exitCode);
@@ -107,7 +107,7 @@ function scenario(
           filesExpected.map((expected) => join(temporaryDirectory, expected.to))
         ).toContain(actual);
       }
-    });
+    }, 30000);
 
     it(`includes the expected file contents`, async () => {
       for (const actual of resultingFiles) {
