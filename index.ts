@@ -115,7 +115,7 @@ runMain(async () => {
       /* istanbul ignore next */
       const childProcess = spawn(
         process.platform === `win32` ? `cmd` : `aseprite`,
-        process.platform === `win32` ? [`aseprite`, ...args] : args
+        process.platform === `win32` ? [`/c`, `aseprite`, ...args] : args
       );
 
       command = childProcess.spawnargs.join(` `);
