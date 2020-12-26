@@ -19,7 +19,7 @@ jobs:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
-    - users: neomura/setup-aseprite-cli-action@v1.0.0
+    - uses: neomura/setup-aseprite-cli-action@v1.0.0
     - run: npm run-script build
   release:
     if: github.event_name == 'release' && github.event.action == 'created'
@@ -32,7 +32,7 @@ jobs:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
-    - users: neomura/setup-aseprite-cli-action@v1.0.0
+    - uses: neomura/setup-aseprite-cli-action@v1.0.0
     - run: npm run-script build
     - run: "sed -i \"s/\\\"version\\\": \\\"0.0.0\\\",/\\\"version\\\": \\\"${GITHUB_REF/refs\\/tags\\/v/}\\\",/g\" package.json"
     - run: npm publish
