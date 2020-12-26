@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
 import { promises, createReadStream } from "fs";
-import { basename, dirname, join, parse, relative } from "path";
+import { basename, dirname, join, parse, relative, sep } from "path";
 import { tmpdir } from "os";
 import { spawn } from "cross-spawn";
 import { version, description, bin } from "./package.json";
@@ -360,11 +360,15 @@ ${script}
 #include "${relative(
       dirname(commandLineArguments.strings.asepriteFile),
       commandLineArguments.strings.neomuraHeaderFile
-    )}"
+    )
+      .split(sep)
+      .join(`/`)}"
 #include "${relative(
       dirname(commandLineArguments.strings.asepriteFile),
       commandLineArguments.strings.neomuraSpritesHeaderFile
-    )}"
+    )
+      .split(sep)
+      .join(`/`)}"
 
 extern const sprite_t ${name};
 
