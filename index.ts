@@ -94,13 +94,7 @@ runMain(async () => {
     let stderr = ``;
 
     await new Promise<void>((resolve, reject) => {
-      // These two branches are platform specific.  We run CI on both so lacking
-      // coverage is acceptable.
-      /* istanbul ignore next */
-      const executable =
-        process.platform === `win32` ? `aseprite.exe` : `aseprite`;
-
-      const childProcess = spawn(executable, [
+      const args = [
         `--batch`,
         `--list-tags`,
         `--trim`,
@@ -111,7 +105,18 @@ runMain(async () => {
         `{frame}`,
         `--sheet`,
         sheetFile,
-      ]);
+      ];
+
+      command = `aseprite ${args.join(` `)}`;
+
+      // These diverge for Win32 by necessity, so full coverage isn't possible
+      // from any individual OS.
+
+      /* istanbul ignore next */
+      const childProcess = spawn(
+        process.platform === `win32` ? `cmd` : `aseprite`,
+        process.platform === `win32` ? [`aseprite`, ...args] : args
+      );
 
       command = childProcess.spawnargs.join(` `);
 
