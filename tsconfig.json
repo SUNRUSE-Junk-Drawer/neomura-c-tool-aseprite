@@ -33,7 +33,7 @@
     "suppressExcessPropertyErrors": false,
     "suppressImplicitAnyIndexErrors": false,
     "stripInternal": true,
-    "target": "ES2017",
+    "target": "ES2018",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
@@ -62,7 +62,7 @@
     "declarationMap": false,
     "resolveJsonModule": true,
     "lib": [
-      "ES2017",
+      "ES2018",
       "DOM"
     ]
   }
