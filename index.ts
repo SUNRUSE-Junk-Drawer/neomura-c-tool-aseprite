@@ -183,6 +183,14 @@ ${script}
         .on(`error`, reject);
     });
 
+    if (data.frames[0].sourceSize.w % 2 !== 0) {
+      throw `canvas width of ${data.frames[0].sourceSize.w} must be even to find origin.`;
+    }
+
+    if (data.frames[0].sourceSize.h % 2 !== 0) {
+      throw `canvas height of ${data.frames[0].sourceSize.h} must be even to find origin.`;
+    }
+
     const frames: ReadonlyArray<{
       readonly width: number;
       readonly height: number;

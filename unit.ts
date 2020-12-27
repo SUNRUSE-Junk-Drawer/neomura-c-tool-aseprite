@@ -730,3 +730,143 @@ scenario(
   [],
   []
 );
+
+scenario(
+  `width odd`,
+  (temporaryDirectory) => [
+    `--aseprite-file`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `example`,
+      `input`,
+      `aseprite-file.ase`
+    ),
+    `--neomura-header-file`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `fictional`,
+      `neomura`,
+      `header`,
+      `file`,
+      `from`,
+      `submodules.h`
+    ),
+    `--neomura-sprites-header-file`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `fictional`,
+      `neomura`,
+      `sprites`,
+      `header`,
+      `file`,
+      `from`,
+      `submodules.h`
+    ),
+    `--refresh-rate`,
+    `60`,
+    `--output`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `fictional`,
+      `neomura`,
+      `sprites`,
+      `header`,
+      `file`,
+      `from`,
+      `submodules.h`
+    ),
+  ],
+  1,
+  ``,
+  /^canvas width of 127 must be even to find origin\.\r?\n$/,
+  [
+    {
+      from: `example-with-odd-width.ase`,
+      to: join(`path`, `to`, `example`, `input`, `aseprite-file.ase`),
+    },
+  ],
+  [
+    {
+      from: `example-with-odd-width.ase`,
+      to: join(`path`, `to`, `example`, `input`, `aseprite-file.ase`),
+    },
+  ]
+);
+
+scenario(
+  `height odd`,
+  (temporaryDirectory) => [
+    `--aseprite-file`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `example`,
+      `input`,
+      `aseprite-file.ase`
+    ),
+    `--neomura-header-file`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `fictional`,
+      `neomura`,
+      `header`,
+      `file`,
+      `from`,
+      `submodules.h`
+    ),
+    `--neomura-sprites-header-file`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `fictional`,
+      `neomura`,
+      `sprites`,
+      `header`,
+      `file`,
+      `from`,
+      `submodules.h`
+    ),
+    `--refresh-rate`,
+    `60`,
+    `--output`,
+    join(
+      temporaryDirectory,
+      `path`,
+      `to`,
+      `fictional`,
+      `neomura`,
+      `sprites`,
+      `header`,
+      `file`,
+      `from`,
+      `submodules.h`
+    ),
+  ],
+  1,
+  ``,
+  /^canvas height of 95 must be even to find origin\.\r?\n$/,
+  [
+    {
+      from: `example-with-odd-height.ase`,
+      to: join(`path`, `to`, `example`, `input`, `aseprite-file.ase`),
+    },
+  ],
+  [
+    {
+      from: `example-with-odd-height.ase`,
+      to: join(`path`, `to`, `example`, `input`, `aseprite-file.ase`),
+    },
+  ]
+);

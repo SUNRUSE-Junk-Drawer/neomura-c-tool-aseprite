@@ -76,4 +76,5 @@ extern const sprite_animation_t tag_c_name;
 
 only visible layers will be included in image data.
 
-the center of the canvas is taken as the origin of the sprite.
+the center of the canvas is taken as the origin of the sprite.  as a consequence
+the width and height must be even.
