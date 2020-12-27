@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 import { v4 } from "uuid";
 import { promises, createReadStream } from "fs";
 import { basename, dirname, join, parse, relative, sep } from "path";
