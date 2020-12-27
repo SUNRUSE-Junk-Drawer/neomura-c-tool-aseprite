@@ -415,16 +415,16 @@ ${frames.map(
 ).join(`
 `)}
 static const u8_t * ${name}_rgba[${frames.length}] = { ${frames
-      .map((_, index) => `&${name}_rgba_${index}`)
+      .map((_, index) => `${name}_rgba_${index}`)
       .join(`, `)} };
 
 const sprite_t ${name} = {
-  &${name}_widths,
-  &${name}_heights,
-  &${name}_x_offsets,
-  &${name}_y_offsets,
-  &${name}_durations,
-  &${name}_rgba,
+  ${name}_widths,
+  ${name}_heights,
+  ${name}_x_offsets,
+  ${name}_y_offsets,
+  ${name}_durations,
+  ${name}_rgba,
   ${frames.length}
 };
 
@@ -439,7 +439,7 @@ ${tags.map(
 ${tags.map(
   (tag) => `const sprite_animation_t ${tag.name} = {
   &${name},
-  &${tag.name}_indices,
+  ${tag.name}_indices,
   ${tag.indices.length},
   ${tag.duration}
 };`
