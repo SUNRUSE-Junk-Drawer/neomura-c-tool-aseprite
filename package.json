@@ -51,7 +51,7 @@
     "neomura-c-tool-aseprite": "./index.js"
   },
   "dependencies": {
-    "@neomura/js-command-line-helpers": "0.0.0",
+    "@neomura/js-command-line-helpers": "1.0.0",
     "cross-spawn": "7.0.3",
     "pngjs": "6.0.0",
     "uuid": "8.3.2"
